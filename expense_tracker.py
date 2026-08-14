@@ -38,6 +38,13 @@ def add_expense(expenses):
     save_expenses(expenses)
     print("Expense Added")
 
+def build_expense(expenses, amount, category, description):
+    today = str(date.today())
+    new_id = max(e["id"] for e in expenses) + 1 if expenses else 1
+    expense = Expense(id=new_id, amount=amount, category=category, description=description, date=today)
+    expenses.append(expense.to_dict())
+    return expenses
+
 def view_all(expenses):
     for expense in expenses:
         print(f"{expense['id']} : {expense['amount']} : {expense['category']} : {expense['description']} : {expense['date']}")

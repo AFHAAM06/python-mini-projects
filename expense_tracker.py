@@ -39,6 +39,8 @@ def add_expense(expenses):
     print("Expense Added")
 
 def build_expense(expenses, amount, category, description):
+    if amount < 0:
+        raise ValueError("You cannot input negitive values")
     today = str(date.today())
     new_id = max(e["id"] for e in expenses) + 1 if expenses else 1
     expense = Expense(id=new_id, amount=amount, category=category, description=description, date=today)

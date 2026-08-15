@@ -1,5 +1,6 @@
+import json
 import pytest
-from expense_tracker import build_expense
+from expense_tracker import build_expense, save_expenses
 
 def test_build_expense():
     result = build_expense([], 100, "food", "lunch")
@@ -24,3 +25,14 @@ def test_build_expense_negitive_amount():
 def test_build_expense_zero_amount():
     result = build_expense([], 0, "food", "lunch")
     assert result[0]["amount"] == 0
+
+def test_save_expenses(tmp_path):
+    test_file = tmp_path / "test_expenses.json"
+    expenses = [{"id": 1, "amount": 100, "category": "food", "description": "lunch", "date": "2026-08-14"}]
+    
+    save_expenses(expenses, filename=test_file)
+    
+    with open(test_file) as f:
+        loaded = json.load(f)
+
+    assert loaded == expenses

@@ -23,8 +23,8 @@ def load_expenses():
     except FileNotFoundError:
         return []
 
-def save_expenses(expenses):
-    with open('expenses.json', 'w') as f:
+def save_expenses(expenses, filename="expenses.json"):
+    with open(filename, "w") as f:
         json.dump(expenses, f)
 
 def add_expense(expenses):
